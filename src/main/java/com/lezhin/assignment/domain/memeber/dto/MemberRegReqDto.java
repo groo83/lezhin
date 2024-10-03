@@ -4,8 +4,6 @@ import com.lezhin.assignment.common.valid.ValidEnum;
 import com.lezhin.assignment.domain.memeber.Member;
 import com.lezhin.assignment.domain.memeber.enums.AdultState;
 import com.lezhin.assignment.domain.memeber.enums.Authority;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,14 +26,6 @@ public class MemberRegReqDto {
 
     @ValidEnum(target = Authority.class, message = "USER(사용자) 또는 ADMIN(관리자) 만 입력해주세요.")
     private String authority = "USER";
-
-    @Builder
-    public MemberRegReqDto(String email, String name, String password, String adultState) {
-        this.email = email;
-        this.name = name;
-        this.password = password;
-        this.adultState = adultState;
-    }
 
     @Builder
     public MemberRegReqDto(String email, String name, String password, String adultState, String authority) {
