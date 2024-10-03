@@ -2,6 +2,7 @@ package com.lezhin.assignment.config.security;
 
 import com.lezhin.assignment.common.jwt.JwtAccessDeniedHandler;
 import com.lezhin.assignment.common.jwt.JwtAuthenticationEntryPoint;
+import com.lezhin.assignment.common.jwt.JwtFilter;
 import com.lezhin.assignment.common.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -15,6 +16,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
 // refer spring documentation
@@ -40,9 +43,8 @@ public class WebSecurityConfig  {
                                 .accessDeniedHandler(jwtAccessDeniedHandler)
                                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 )
-                .apply(
-                        new JwtSecurityConfig(tokenProvider)
-                );
+                .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
