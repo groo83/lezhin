@@ -30,7 +30,6 @@ public class AuthService {
 
     @Transactional
     public MemberRegResDto signup(MemberRegReqDto memberDto) {
-
         if (memberRepository.existsByEmail(memberDto.getEmail())) {
             throw new BusinessException(ErrorCode.EXIST_EMAIL);
         }

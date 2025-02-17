@@ -5,7 +5,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class DataResponse<T> extends BaseResDto{
+public class DataResponse<T> extends BaseResDto {
 
     private final T data;
 
